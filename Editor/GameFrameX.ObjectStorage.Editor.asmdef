@@ -1,0 +1,20 @@
+{
+    "name": "GameFrameX.ObjectStorage.Editor",
+    "rootNamespace": "GameFrameX.ObjectStorage.Editor",
+    "references": [
+        "GameFrameX.Editor",
+        "GameFrameX.Runtime",
+        "GameFrameX.ObjectStorage.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
