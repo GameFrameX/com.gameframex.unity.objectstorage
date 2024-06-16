@@ -7,7 +7,7 @@ namespace GameFrameX.ObjectStorage.Runtime
         protected string BucketSavePath;
 
         protected string UploadRootPath = string.Empty;
-        public abstract void Init(string accessKey, string secretKey, string bucketName);
+        public abstract void Init(string accessKey, string secretKey, string bucketName, string endpoint = null);
 
         public void SetSavePath(string savePath)
         {
