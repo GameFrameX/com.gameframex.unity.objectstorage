@@ -1,5 +1,5 @@
 {
-  "name": "com.alianblank.gameframex.unity.objectstorage",
+  "name": "com.gameframex.unity.objectstorage",
   "displayName": "Game Frame X Object Storage",
   "category": "Game Framework X",
   "description": "Game Frame X Object Storage Component",
@@ -9,8 +9,8 @@
     "Game Framework X"
   ],
   "repository": {
-    "name": "com.alianblank.gameframex.unity.objectstorage",
-    "url": "https://github.com/AlianBlank/com.alianblank.gameframex.unity.objectstorage.git",
+    "name": "com.gameframex.unity.objectstorage",
+    "url": "https://github.com/AlianBlank/com.gameframex.unity.objectstorage.git",
     "type": "git"
   },
   "author": {
