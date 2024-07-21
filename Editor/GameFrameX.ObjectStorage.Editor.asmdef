@@ -3,8 +3,7 @@
     "rootNamespace": "GameFrameX.ObjectStorage.Editor",
     "references": [
         "GameFrameX.Editor",
-        "GameFrameX.Runtime",
-        "GameFrameX.ObjectStorage.Runtime"
+        "GameFrameX.Runtime"
     ],
     "includePlatforms": [
         "Editor"

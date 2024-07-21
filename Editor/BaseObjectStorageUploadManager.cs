@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace GameFrameX.ObjectStorage.Runtime
+namespace GameFrameX.ObjectStorage.Editor
 {
     public abstract class BaseObjectStorageUploadManager : IObjectStorageUploadManager
     {

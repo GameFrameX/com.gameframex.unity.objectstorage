@@ -1,6 +1,6 @@
 using System;
 
-namespace GameFrameX.ObjectStorage.Runtime
+namespace GameFrameX.ObjectStorage.Editor
 {
     /// <summary>
     /// 对象存储上传工厂

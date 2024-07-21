@@ -1,4 +1,4 @@
-namespace GameFrameX.ObjectStorage.Runtime
+namespace GameFrameX.ObjectStorage.Editor
 {
     public interface IObjectStorageManager
     {
