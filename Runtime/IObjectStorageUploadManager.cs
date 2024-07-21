@@ -13,5 +13,11 @@ namespace GameFrameX.ObjectStorage.Runtime
         /// </summary>
         /// <param name="localDirectory"></param>
         void UploadDirectory(string localDirectory);
+
+        /// <summary>
+        /// 上传文件
+        /// </summary>
+        /// <param name="localFilePathAndName"></param>
+        bool UploadFile(string localFilePathAndName);
     }
 }

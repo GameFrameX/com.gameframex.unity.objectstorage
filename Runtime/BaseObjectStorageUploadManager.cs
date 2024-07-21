@@ -25,6 +25,12 @@ namespace GameFrameX.ObjectStorage.Runtime
             UploadDirectoryInternal(localDirectory);
         }
 
+        public bool UploadFile(string localFilePathAndName)
+        {
+            return UploadFileInternal(localFilePathAndName);
+        }
+
         protected abstract void UploadDirectoryInternal(string localDirectory);
+        protected abstract bool UploadFileInternal(string localFilePathAndName);
     }
 }
