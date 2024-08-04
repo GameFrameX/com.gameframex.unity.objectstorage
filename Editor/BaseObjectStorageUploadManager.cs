@@ -11,7 +11,7 @@ namespace GameFrameX.ObjectStorage.Editor
 
         public void SetSavePath(string savePath)
         {
-            if (savePath.EndsWith(Path.DirectorySeparatorChar))
+            if (savePath.EndsWith(Path.DirectorySeparatorChar.ToString()))
             {
                 savePath = savePath.Substring(0, savePath.Length - 1);
             }
