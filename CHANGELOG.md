@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/gameframex/com.gameframex.unity.objectstorage/compare/1.0.4...1.1.0) (2025-12-23)
+
+
+### Features
+
+* **ci:** change ci ([ad5ff05](https://github.com/gameframex/com.gameframex.unity.objectstorage/commit/ad5ff055442f822874c2894f55b1debb66bde92d))
+
 # Changelog
 
 ## [1.0.4](https://github.com/GameFrameX/com.gameframex.unity.objectstorage/tree/1.0.4) (2025-06-01)
