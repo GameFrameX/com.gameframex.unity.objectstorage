@@ -1,3 +1,18 @@
+# [2.0.0](https://github.com/gameframex/com.gameframex.unity.objectstorage/compare/1.2.0...2.0.0) (2026-10-15)
+
+
+### Features
+
+* 为对象存储管理器补充单元测试 ([d2a3a48](https://github.com/gameframex/com.gameframex.unity.objectstorage/commit/d2a3a48f57dedf2b0f2606cbd66e43a62eea09e1))
+* 对象存储抽象迁移至 Runtime 并支持运行时上传下载 ([d0753ec](https://github.com/gameframex/com.gameframex.unity.objectstorage/commit/d0753ece44860fbcab9608fba0f361c2ee572af4))
+
+
+### BREAKING CHANGES
+
+* 命名空间由 GameFrameX.ObjectStorage.Editor 变更为
+GameFrameX.ObjectStorage.Runtime，旧上传接口与工厂被移除，服务商实现
+包需改用新 API。
+
 # [1.2.0](https://github.com/gameframex/com.gameframex.unity.objectstorage/compare/1.1.1...1.2.0) (2026-07-30)
 
 
