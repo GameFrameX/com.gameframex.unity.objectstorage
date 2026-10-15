@@ -1,12 +1,12 @@
 {
   "name": "com.gameframex.unity.objectstorage",
   "displayName": "Game Frame X Object Storage",
-  "category": "Game Framework X",
-  "description": "Game Frame X Object Storage Component",
+  "category": "Game Frame X",
+  "description": "GameFrameX ObjectStorage — base interfaces and abstractions for cloud object storage operations. Defines IObjectStorageManager for uploading and downloading files and directories in both runtime and editor, Option-style parameter classes (ObjectStorageOptions / ObjectStorageUploadOptions / ObjectStorageDownloadOptions), the BaseObjectStorageManager abstract base class for custom implementations, and the ObjectStorageManagerFactory static factory for creating manager instances. Provider-specific implementations (ALiYun OSS, Qiniu Cloud, Tencent COS) are available as separate packages. Docs: https://gameframex.doc.alianblank.com\n\nGameFrameX ObjectStorage — 对象存储（云文件存储）操作的基础接口与抽象功能包。定义在运行时与编辑器均可用、支持文件与目录上传下载的 IObjectStorageManager，Option 风格参数类（ObjectStorageOptions / ObjectStorageUploadOptions / ObjectStorageDownloadOptions），供自定义实现继承的 BaseObjectStorageManager 抽象基类，以及创建管理器实例的 ObjectStorageManagerFactory 静态工厂。阿里云 OSS、七牛云、腾讯云 COS 等服务商实现以独立功能包提供。文档：https://gameframex.doc.alianblank.com",
   "version": "1.2.0",
   "unity": "2019.4",
   "keywords": [
-    "Game Framework X"
+    "Game Frame X"
   ],
   "repository": {
     "name": "com.gameframex.unity.objectstorage",
@@ -19,7 +19,7 @@
     "url": "https://gameframex.doc.alianblank.com"
   },
   "dependencies": {
-    "com.gameframex.unity": "2.5.1"
+    "com.gameframex.unity": "3.0.0"
   },
   "devDependencies": {
     "semantic-release": "^24.2.0",
