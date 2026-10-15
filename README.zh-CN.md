@@ -23,14 +23,51 @@
 
 ## 项目简介
 
-**Object Storage 组件** - 提供对象存储（云文件存储）操作的基础接口和抽象。本包定义了上传文件和目录到对象存储服务的核心契约，服务商特定的实现以独立包的形式提供。
+**Object Storage 组件** - 提供对象存储（云文件存储）操作的基础接口和抽象。本包以 Option 风格参数定义了上传、下载文件和目录到对象存储服务的核心契约，运行时与编辑器均可使用，服务商特定的实现以独立包的形式提供。
 
 ### 功能特性
 
-- `IObjectStorageManager` 接口，用于存储管理器初始化
-- `IObjectStorageUploadManager` 接口，用于文件/目录上传操作
-- `BaseObjectStorageUploadManager` 抽象基类，供自定义实现
-- `ObjectStorageUploadFactory` 静态工厂类，用于创建上传管理器实例
+- `IObjectStorageManager` 接口：统一的文件/目录上传与下载契约，运行时与编辑器均可用
+- `ObjectStorageOptions`、`ObjectStorageUploadOptions`、`ObjectStorageDownloadOptions`：Option 风格的参数类
+- `BaseObjectStorageManager` 抽象基类，供自定义实现（负责对象键拼接、目录遍历、异常处理）
+- `ObjectStorageManagerFactory` 静态工厂类，用于创建并初始化管理器实例
+
+## 使用示例
+
+```csharp
+using GameFrameX.ObjectStorage.Runtime;
+using GameFrameX.ObjectStorage.Tencent.Runtime; // 按需选择云厂商实现包（阿里云 / 七牛云 / 腾讯云）
+
+// 通过工厂创建并初始化管理器
+IObjectStorageManager manager = ObjectStorageManagerFactory.Create<TencentCloudObjectStorageManager>(new ObjectStorageOptions
+{
+    AccessKey = "your-access-key",
+    SecretKey = "your-secret-key",
+    BucketName = "your-bucket",
+    Endpoint = "ap-guangzhou",  // 阿里云：oss-cn-shenzhen.aliyuncs.com（必填）；腾讯云：存储桶地域；七牛云：忽略
+    SavePath = "builder/MyGame/Android",  // 默认对象键前缀
+});
+
+// 上传单个文件（对象键 = SavePath + 文件名）
+manager.UploadFile(new ObjectStorageUploadOptions { LocalPath = "/build/MyGame.apk" });
+
+// 递归上传整个目录，保留相对路径
+manager.UploadDirectory(new ObjectStorageUploadOptions { LocalPath = "Bundles/Android" });
+
+// 下载单个对象（自动创建本地目录）
+manager.DownloadFile(new ObjectStorageDownloadOptions
+{
+    ObjectKey = "builder/MyGame/Android/MyGame.apk",
+    LocalPath = "downloads/MyGame.apk",
+});
+
+// 下载前缀下的全部对象，保留相对路径
+manager.DownloadDirectory(new ObjectStorageDownloadOptions
+{
+    ObjectKey = "builder/MyGame/Android",
+    LocalPath = "downloads",
+});
+```
 
 ## 快速开始
 

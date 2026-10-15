@@ -23,14 +23,51 @@ All-in-One Solution for Indie Game Development · Empowering Indie Developers' D
 
 ## Project Overview
 
-**Object Storage Component** - Provides base interfaces and abstractions for object storage (cloud file storage) operations. This package defines the core contracts for uploading files and directories to object storage services, with provider-specific implementations available as separate packages.
+**Object Storage Component** - Provides base interfaces and abstractions for object storage (cloud file storage) operations. This package defines the core contracts for uploading and downloading files and directories to and from object storage services through an Option-based API, usable in both runtime and editor builds, with provider-specific implementations available as separate packages.
 
 ### Features
 
-- `IObjectStorageManager` interface for storage manager initialization
-- `IObjectStorageUploadManager` interface for file/directory upload operations
-- `BaseObjectStorageUploadManager` abstract base class for custom implementations
-- `ObjectStorageUploadFactory` static factory for creating upload manager instances
+- `IObjectStorageManager` interface: unified contracts for file/directory upload and download, available in both runtime and editor
+- `ObjectStorageOptions`, `ObjectStorageUploadOptions`, `ObjectStorageDownloadOptions`: Option-style parameter classes
+- `BaseObjectStorageManager` abstract base class for custom implementations (object key combining, directory traversal, error handling)
+- `ObjectStorageManagerFactory` static factory for creating and initializing manager instances
+
+## Usage
+
+```csharp
+using GameFrameX.ObjectStorage.Runtime;
+using GameFrameX.ObjectStorage.Tencent.Runtime; // pick the matching provider package (ALiYun / QiNiu / Tencent)
+
+// Create and initialize the manager through the factory
+IObjectStorageManager manager = ObjectStorageManagerFactory.Create<TencentCloudObjectStorageManager>(new ObjectStorageOptions
+{
+    AccessKey = "your-access-key",
+    SecretKey = "your-secret-key",
+    BucketName = "your-bucket",
+    Endpoint = "ap-guangzhou",  // ALiYun: oss-cn-shenzhen.aliyuncs.com (required); Tencent: bucket region; QiNiu: ignored
+    SavePath = "builder/MyGame/Android",  // default object key prefix
+});
+
+// Upload a single file (object key = SavePath + file name)
+manager.UploadFile(new ObjectStorageUploadOptions { LocalPath = "/build/MyGame.apk" });
+
+// Recursively upload a directory, preserving relative paths
+manager.UploadDirectory(new ObjectStorageUploadOptions { LocalPath = "Bundles/Android" });
+
+// Download a single object (local directories are created automatically)
+manager.DownloadFile(new ObjectStorageDownloadOptions
+{
+    ObjectKey = "builder/MyGame/Android/MyGame.apk",
+    LocalPath = "downloads/MyGame.apk",
+});
+
+// Download all objects under a prefix, preserving relative paths
+manager.DownloadDirectory(new ObjectStorageDownloadOptions
+{
+    ObjectKey = "builder/MyGame/Android",
+    LocalPath = "downloads",
+});
+```
 
 ## Quick Start
 

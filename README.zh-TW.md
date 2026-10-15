@@ -23,14 +23,51 @@
 
 ## 項目簡介
 
-**Object Storage 組件** - 提供物件儲存（雲端檔案儲存）操作的基礎介面和抽象。本套件定義了上傳檔案和目錄到物件儲存服務的核心合約，服務商特定的實作以獨立套件的形式提供。
+**Object Storage 組件** - 提供物件儲存（雲端檔案儲存）操作的基礎介面和抽象。本套件以 Option 風格參數定義了上傳、下載檔案和目錄到物件儲存服務的核心合約，執行時與編輯器均可使用，服務商特定的實作以獨立套件的形式提供。
 
 ### 功能特性
 
-- `IObjectStorageManager` 介面，用於儲存管理器初始化
-- `IObjectStorageUploadManager` 介面，用於檔案/目錄上傳操作
-- `BaseObjectStorageUploadManager` 抽象基底類別，供自訂實作
-- `ObjectStorageUploadFactory` 靜態工廠類別，用於建立上傳管理器實例
+- `IObjectStorageManager` 介面：統一的檔案/目錄上傳與下載合約，執行時與編輯器均可用
+- `ObjectStorageOptions`、`ObjectStorageUploadOptions`、`ObjectStorageDownloadOptions`：Option 風格的參數類別
+- `BaseObjectStorageManager` 抽象基底類別，供自訂實作（負責物件鍵拼接、目錄遍歷、例外處理）
+- `ObjectStorageManagerFactory` 靜態工廠類別，用於建立並初始化管理器實例
+
+## 使用範例
+
+```csharp
+using GameFrameX.ObjectStorage.Runtime;
+using GameFrameX.ObjectStorage.Tencent.Runtime; // 按需選擇雲端廠商實作套件（阿里雲 / 七牛雲 / 騰訊雲）
+
+// 透過工廠建立並初始化管理器
+IObjectStorageManager manager = ObjectStorageManagerFactory.Create<TencentCloudObjectStorageManager>(new ObjectStorageOptions
+{
+    AccessKey = "your-access-key",
+    SecretKey = "your-secret-key",
+    BucketName = "your-bucket",
+    Endpoint = "ap-guangzhou",  // 阿里雲：oss-cn-shenzhen.aliyuncs.com（必填）；騰訊雲：儲存桶地域；七牛雲：忽略
+    SavePath = "builder/MyGame/Android",  // 預設物件鍵前綴
+});
+
+// 上傳單一檔案（物件鍵 = SavePath + 檔名）
+manager.UploadFile(new ObjectStorageUploadOptions { LocalPath = "/build/MyGame.apk" });
+
+// 遞迴上傳整個目錄，保留相對路徑
+manager.UploadDirectory(new ObjectStorageUploadOptions { LocalPath = "Bundles/Android" });
+
+// 下載單一物件（自動建立本地目錄）
+manager.DownloadFile(new ObjectStorageDownloadOptions
+{
+    ObjectKey = "builder/MyGame/Android/MyGame.apk",
+    LocalPath = "downloads/MyGame.apk",
+});
+
+// 下載前綴下的全部物件，保留相對路徑
+manager.DownloadDirectory(new ObjectStorageDownloadOptions
+{
+    ObjectKey = "builder/MyGame/Android",
+    LocalPath = "downloads",
+});
+```
 
 ## 快速開始
 

@@ -23,14 +23,51 @@
 
 ## プロジェクト概要
 
-**Object Storage コンポーネント** - オブジェクトストレージ（クラウドファイルストレージ）操作の基本インターフェースと抽象を提供します。このパッケージは、ファイルやディレクトリのオブジェクトストレージサービスへのアップロードに関するコアコントラクトを定義し、プロバイダー固有の実装は個別パッケージとして提供されます。
+**Object Storage コンポーネント** - オブジェクトストレージ（クラウドファイルストレージ）操作の基本インターフェースと抽象を提供します。このパッケージは、Option スタイルのパラメータでファイルやディレクトリのアップロード・ダウンロードのコアコントラクトを定義します。ランタイムとエディタの両方で利用でき、プロバイダー固有の実装は個別パッケージとして提供されます。
 
 ### 機能
 
-- `IObjectStorageManager` インターフェース：ストレージマネージャーの初期化用
-- `IObjectStorageUploadManager` インターフェース：ファイル/ディレクトリアップロード操作用
-- `BaseObjectStorageUploadManager` 抽象基底クラス：カスタム実装用
-- `ObjectStorageUploadFactory` 静的ファクトリクラス：アップロードマネージャーインスタンスの作成用
+- `IObjectStorageManager` インターフェース：ファイル/ディレクトリのアップロードとダウンロードの統一コントラクト。ランタイムとエディタの両方で利用可能
+- `ObjectStorageOptions`、`ObjectStorageUploadOptions`、`ObjectStorageDownloadOptions`：Option スタイルのパラメータクラス
+- `BaseObjectStorageManager` 抽象基底クラス：カスタム実装用（オブジェクトキー結合、ディレクトリ走査、例外処理を担当）
+- `ObjectStorageManagerFactory` 静的ファクトリクラス：マネージャーインスタンスの作成と初期化
+
+## 使用例
+
+```csharp
+using GameFrameX.ObjectStorage.Runtime;
+using GameFrameX.ObjectStorage.Tencent.Runtime; // 必要なプロバイダーパッケージを選択（ALiYun / QiNiu / Tencent）
+
+// ファクトリでマネージャーを作成・初期化
+IObjectStorageManager manager = ObjectStorageManagerFactory.Create<TencentCloudObjectStorageManager>(new ObjectStorageOptions
+{
+    AccessKey = "your-access-key",
+    SecretKey = "your-secret-key",
+    BucketName = "your-bucket",
+    Endpoint = "ap-guangzhou",  // ALiYun: oss-cn-shenzhen.aliyuncs.com（必須）；Tencent: バケットリージョン；QiNiu: 無視
+    SavePath = "builder/MyGame/Android",  // デフォルトのオブジェクトキープレフィックス
+});
+
+// 単一ファイルのアップロード（オブジェクトキー = SavePath + ファイル名）
+manager.UploadFile(new ObjectStorageUploadOptions { LocalPath = "/build/MyGame.apk" });
+
+// ディレクトリを再帰的にアップロード（相対パス維持）
+manager.UploadDirectory(new ObjectStorageUploadOptions { LocalPath = "Bundles/Android" });
+
+// 単一オブジェクトのダウンロード（ローカルディレクトリは自動作成）
+manager.DownloadFile(new ObjectStorageDownloadOptions
+{
+    ObjectKey = "builder/MyGame/Android/MyGame.apk",
+    LocalPath = "downloads/MyGame.apk",
+});
+
+// プレフィックス以下の全オブジェクトをダウンロード（相対パス維持）
+manager.DownloadDirectory(new ObjectStorageDownloadOptions
+{
+    ObjectKey = "builder/MyGame/Android",
+    LocalPath = "downloads",
+});
+```
 
 ## クイックスタート
 
