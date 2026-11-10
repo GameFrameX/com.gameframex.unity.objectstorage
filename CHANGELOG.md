@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/gameframex/com.gameframex.unity.objectstorage/compare/2.0.0...2.0.1) (2026-11-10)
+
+
+### Bug Fixes
+
+* **objectstorage:** 添加完整 link.xml 防代码裁剪保护 ([4dce1ef](https://github.com/gameframex/com.gameframex.unity.objectstorage/commit/4dce1efffee3338a939966593a10bf5660786f80))
+
 # [2.0.0](https://github.com/gameframex/com.gameframex.unity.objectstorage/compare/1.2.0...2.0.0) (2026-10-15)
 
 
