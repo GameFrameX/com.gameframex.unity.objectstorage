@@ -17,6 +17,8 @@ namespace GameFrameX.ObjectStorage.Runtime
         public static T Create<T>(ObjectStorageOptions options) where T : class, IObjectStorageManager, new()
         {
             T manager = new T();
+            // 注意：日志只输出桶名与地址，禁止输出 AccessKey / SecretKey。
+            UnityEngine.Debug.Log($"Object storage manager created : '{typeof(T).FullName}', bucket '{options.BucketName}', endpoint '{options.Endpoint}'.");
             manager.Init(options);
             return manager;
         }
