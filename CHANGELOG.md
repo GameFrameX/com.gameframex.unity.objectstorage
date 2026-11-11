@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/gameframex/com.gameframex.unity.objectstorage/compare/2.0.1...2.1.0) (2026-11-11)
+
+
+### Features
+
+* **objectstorage:** 工厂创建时输出存储管理器日志 ([b417935](https://github.com/gameframex/com.gameframex.unity.objectstorage/commit/b4179350c4f2c7b1d9ca5b43eaf4377504089ddd))
+
 ## [2.0.1](https://github.com/gameframex/com.gameframex.unity.objectstorage/compare/2.0.0...2.0.1) (2026-11-10)
 
 
